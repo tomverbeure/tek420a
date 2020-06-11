@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Redirect data from a TCP/IP connection to a serial port and vice versa.
 #
@@ -39,16 +39,6 @@ Only one connection at once is supported. When the connection is terminated
 it waits for the next connect.
 """)
 
-#?    parser.add_argument(
-#?        'SERIALPORT',
-#?        help="serial port name")
-#?
-#?    parser.add_argument(
-#?        'BAUDRATE',
-#?        type=int,
-#?        nargs='?',
-#?        help='set baud rate, default: %(default)s',
-#?        default=9600)
 
     parser.add_argument(
         '-q', '--quiet',
@@ -131,6 +121,7 @@ it waits for the next connect.
     rm = pyvisa.ResourceManager()
     #gpib = rm.open_resource("GPIB0::1::INSTR")
     gpib = rm.open_resource('USB0::62700::60986::SDS2XJBD1R2754::0::INSTR')
+    #gpib = rm.open_resource('TCPIP::192.168.1.177')
 
     if not args.quiet:
         sys.stderr.write(
@@ -189,25 +180,41 @@ it waits for the next connect.
                 # enter network <-> serial loop
                 while True:
                     try:
-                        data2gpib = client_socket.recv(1024)
+                        data2gpib = client_socket.recv(65536)
                         if not data2gpib:
                             break
 
                         sys.stderr.write('send all: {}\n'.format(data2gpib))
-                        messages = data2gpib.split(b'\n')
 
+                        if False:
+                            gpib.write_raw(data2gpib)
+                            data2gpib_str = data2gpib.decode("utf-8").strip()
+                            if data2gpib_str.find("?") != -1:
+    
+                                try:
+                                    gpib.timeout = 5000
+                                    data = gpib.read_raw(200000000)
+                                    sys.stderr.write('DATA: {}, len({})\n'.format(data, len(data)))
+                                    if data:
+                                        client_socket.sendall(data)
+                                except pyvisa.errors.VisaIOError:
+                                    pass
+                                        #client_socket.sendall(b'')
+
+                        messages = data2gpib.split(b'\n')
                         for m in messages:
                             if m == b'':
                                 break;
 
-                            m_str = data2gpib.decode("utf-8").strip()
+                            m_str = m.decode("utf-8").strip()
                             sys.stderr.write('send: {}\n'.format(m))
                             gpib.write_raw(m)
 
                             if m_str.find("?") != -1:
 
                                 try:
-                                    data = gpib.read_raw()
+                                    gpib.timeout = 5000
+                                    data = gpib.read_raw(200000000)
                                     sys.stderr.write('DATA: {}, len({})\n'.format(data, len(data)))
                                     if data:
                                         client_socket.sendall(data)
