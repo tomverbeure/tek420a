@@ -11,6 +11,7 @@ import socket
 import time
 import binascii
 import pyvisa
+from timeit import default_timer as timer
 
 
 #class SerialToNet(serial.threaded.Protocol):
@@ -119,8 +120,8 @@ it waits for the next connect.
 
     # connect to gpib port
     rm = pyvisa.ResourceManager()
-    #gpib = rm.open_resource("GPIB0::1::INSTR")
-    gpib = rm.open_resource('USB0::62700::60986::SDS2XJBD1R2754::0::INSTR')
+    gpib = rm.open_resource("GPIB0::1::INSTR")
+    #gpib = rm.open_resource('USB0::62700::60986::SDS2XJBD1R2754::0::INSTR')
     #gpib = rm.open_resource('TCPIP::192.168.1.177')
 
     if not args.quiet:
@@ -183,6 +184,8 @@ it waits for the next connect.
                         data2gpib = client_socket.recv(65536)
                         if not data2gpib:
                             break
+                        
+                        start_time = timer()
 
                         sys.stderr.write('send all: {}\n'.format(data2gpib))
 
@@ -233,6 +236,9 @@ it waits for the next connect.
 #                    sys.stderr.write('DATA: {}\n'.format(data))
 #                    if data:
 #                        client_socket.sendall(data)
+
+                    elapsed_time = timer() - start_time
+                    sys.stderr.write('elapsed time: {}\n'.format(elapsed_time))
 
             except KeyboardInterrupt:
                 intentional_exit = True

@@ -443,8 +443,24 @@ RUNST;0;SAM;10;16;1
 ```
     * `ACQ:STATE RUN` : start acquisition
     * `ACQ:STATE STOP` : stop acquisition
-    * `WFMPRE?` : waveform preamble information
-    * `CURV?` :waveform data
+    * `DATA:SOURCE CH1` : select data channel to fetch
+    * `DATA:SOURCE CH1,CH2,CH3,CH4` : fetch multiple channels at once
+    * `WFMPRE?` : waveform preamble information of all data:source channels
+    * `CURV?` : waveform data
+    * `WAVF?`: waveform preamble and waveform data together 
+
+
+Single acquistion:
+
+    * `ACQ:STOPA SEQ`
+    * `ACQ:REPE 1`
+    * `ACQ:STATE ON`
+
+Continuous acquistion:
+
+    * `ACQ:STOPA RUNST`
+    * `ACQ:STATE ON`
+
 
 
 ## USB permissions
