@@ -1,5 +1,5 @@
 
-
+**This is my scrapbook related to my Tektronix TDS 420A oscilloscope: drafts, some code, experiments. Don't expect things in the repo to be well organized or usable in any way. Eventually, some of the info here may end up in some blog post.**
 
 
 # Introduction
