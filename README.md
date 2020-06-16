@@ -4,15 +4,16 @@
 
 # Introduction
 
-After my work on getting my Siglent oscilloscope to play nice with glscopeclient, I wanted to fix a major gap in the list
-support equipment: Tektronix oscilloscopes. There was none. I can't say that there was really urgent need for it, but
-let's justify it by the fact that we're using Tektronix scopes at work, and maybe, one day, I'll need the kind of processing
-that glscopeclient provides?
+After my work on getting my Siglent oscilloscope to somewhat play nice with
+[glscopeclient](https://hackaday.com/2019/05/30/glscopeclient-a-permissively-licensed-remote-oscilloscope-utility/),
+I wanted to fix a major gap in the list support equipment: Tektronix oscilloscopes. There was none. I can't say
+that there was really urgent need for it, but let's justify it by the fact that we're using Tektronix scopes at work,
+and maybe, one day, I'll need the kind of processing that glscopeclient provides?
 
-Another driver was the fact that I suspected that a Tektronix scope would be better at handling data transfer than the Siglent
-(which spends 80% of the time on preparing the data for transmission and only the remaining 20% on the transmission itself.)
+Another driver was the fact that I suspected that a Tektronix scope would be better at handling data transfers than the Siglent,
+which spends 80% of the time on preparing the data for transmission and only the remaining 20% on the transmission itself.
 
-I had already been watching eBay for cheap Tek scopes (there aren't many), when I noticed this one:
+I had already been monitoring eBay for cheap Tek scopes (there aren't many), when I noticed this one:
 
 ![Tek 420A on eBay](/assets/tek420a/tek420a_ebay.png)
 
@@ -22,31 +23,32 @@ as working, but one that has been calibrated only little more than a year ago!
 
 ![Tek 420A Calibration Tag](/assets/tek420a/tek420a_calibrated.png)
 
-A week later, the goods arrived. 
+A week later, the goods arrived.
+
+![Tek 420A Fresh Off the Boat](/assets/tek420a/fresh_off_the_boat.jpg)
 
 It still had the "Property of Motorola" inventory tag attached, and 2 "RICKY J" labels. Ricky: the scope is in good hands!
 
 The eBay listing didn't have the customary bootup screen, but whatever worries I had were unfounded: shortly after powering
 up the scope, I was greeted with with "Power-On self check PASSED" message!
 
-![Tek 420A Poweron Self Check PASSED](/assets/tek420a/tek420a_self_check_pass.png)
-
+![Tek 420A Poweron Self Check PASSED](/assets/tek420a/power_on_self_check_passed.jpg)
 
 # The Tektronix TDS 420A in Brief
 
-Released in 1991, the TDS 420A is old enough to have teenage children by now! But despite it age, anybody who has worked
+Released in 1991, the TDS 420A is old enough to have teenage children by now! But despite it ages, anybody who has worked
 with more recent Tek scopes will feel right at home: the user interface is nearly identical. That doesn't mean that
-it's great, but at least it's consistent.
+the UI is great, it's not, but at least it's consistent.
 
 Here's a quick overview of the TDS 420A
 
 * 4 channels
 
-    This is my number 1 requirement of any scope. 2 channels is just not enough for many cases.
+    This is my number 1 requirement of any scope. 2 channels are just not enough for many cases.
 
 * 100MS/s sampling rate
 
-    Let's be honest: this isn't great. Even low-end FPGAs can routinely run logic at 100MHz speeds and up, so forget
+    Let's be honest: this isn't fantastic. Even low-end FPGAs can routinely run logic at 100MHz speeds and up, so forget
     about capturing these kind of signals.
 
     On the other hand, it's more than sufficient to debug your typical lower speed signals, such as RS232, I2C, VGA etc.
@@ -66,13 +68,15 @@ Here's a quick overview of the TDS 420A
     Siglent, I rarely use the 140M setting because real-time acquistion can become too slow to feel
     responsive.
 
+    Like the sample rate, the number of sample points doesn't go down when you enable more than 1 channel.
+
 * Size: 13" wide, 18" deep, 6" high
 
     My bench is 24" deep and always full of stuff. 18" is hard to swallow.
 
 * 7" monochrome CRT screen
 
-    Perfect for 1980s Hercules graphics nostalgia! You can set different intensities for the UI 
+    Perfect for that 1980s Hercules graphics nostalgia! You can set different intensities for the UI
     elements and waveforms. The display is fine for what it is, and after playing with it for
     a couple of hours, it doesn't bother me at all.
 
@@ -86,11 +90,11 @@ Here's a quick overview of the TDS 420A
     One major negative is the price of GPIB to USB interface dongles: except for cheaper UGPlus ones that
     aren't supported by any Linux driver, you'll be paying at least ~$60 for an Agilent 82357B on AliExpress.
 
-    I didn't want to wait 2 months for it to arrive, so I went with a $100 National Instruments GPIB-USB-HS
-    instead. That's a steep price for what it is, but $190 + $100 is still less than any working second hand 
-    Tek scope with an Ethernet port.
+    I didn't want to wait 2 months for one of those to arrive, so I went with a $100 National Instruments
+    GPIB-USB-HS instead. That's a steep price for what it is, but $190 + $100 is still less than any working
+    second hand Tek scope with an Ethernet port.
 
-    Once I done (~lose interest) in the whole glscopeclient exercise, I'll probably sell it back on eBay...
+    Once I'm done (=lose interest) with the whole glscopeclient exercise, I'll probably sell it back on eBay...
 
 * Other features
 
@@ -98,25 +102,24 @@ Here's a quick overview of the TDS 420A
     * X/Y display
     * Limit checks
 
-        Does an acquired signal fall within a predefined guardband?
+        This checks that an acquired signal falls within a predefined guardband.
 
 Options present on my scope:
 
-* Option 13 RS-232/Centronics Hardcopy Interface 
+* Option 13 RS-232/Centronics Hardcopy Interface
 
     The wonderful option 13 allows me to connect a variety of printers, such as an HP Thinkjet or an Epson
-    Dot Matrix printer, via a Centronics parallel cable straight to the scope and make beautif printouts
-    of whatever is one the screen. Amazing!
+    dot matrix printer, via a RS-232 cable or a Centronics parallel cable straight to the scope and make
+    beautiful printouts of whatever is one the screen. Amazing!
 
-    The RS-232 port supports a BAUD rate of up to 19200. 
-
-    The manual only talks about RS-232 in the context of sending screenshots to the printer, but if it
-    can also be used to control the scope and fetch acquisition data, 19200 baud will allow you to download 
-    about 4 500 sample waveforms per second.
+    The RS-232 port supports a BAUD rate of up to 19200 and only supports the hardcopy feature. It does
+    not support remote control.
 
 * Option 1F File System
 
-    It has a floppy drive!
+    It has a floppy drive! I've seen kits on eBay to replace the floppy drive with a USB flash
+    drive, but there's just no need for that when you can transfer the data straight from the scope to the
+    PC.
 
 Some other options:
 
@@ -131,27 +134,13 @@ Some other options:
     The whole idea of glscopeclient is to move these kind of operations from the scope to the PC, so I don't
     really care about being able to run an FFT on the scope itself.
 
-# Documentation
-
-Tek scopes are used for decades and Tektronics cares about its customers. 29 years after introduction,
-most manuals and programming guides are readily available on their website. And if some of the more obscure
-information isn't there, some other website probably has a copy.
-
-* [TDS410A, TDS420A & TDS460A User manual](https://www.tek.com/oscilloscope/tds420a-manual/tds410a-tds420a-tds460a-user-manual)
-    * [PDF link](https://download.tek.com/manual/070921900.pdf)
-* [TDS Family Digitizing Oscilloscopes Programmers Manual](https://www.tek.com/manual/tds-family-programmer-manual)
-    * [PDF link](https://download.tek.com/manual/070987600.pdf)
-* [TDS410A, TDS420A, & TDS460A Technical Reference - Performance Verification and Specifications](https://www.tek.com/oscilloscope/tds420a-manual/tds410a-tds420a-tds460a-technical-reference)
-    * [PDF link](https://download.tek.com/manual/070921800.pdf)
-* [TDS Family Option 13 RS-232/Centronics Hardcopy Interface](http://w140.com/tekwiki/images/f/f0/070-8567-01.pdf)
-
 # The Leaking Electrolytic Capacitor Problem
 
 When looking around the web for information about the TDS 420A, you'll find a bunch of videos about
-how to repair them by replacing electrolytic capacitors.  
+how to repair them by replacing electrolytic capacitors.
 
-This is a big issue for many vintage early-1990s electronics boards: the SMD electrolytic capacitors eventually 
-start leaking. There are 2 problem with that: 
+This is a big issue for many vintage early-1990s electronics boards: the SMD electrolytic capacitors eventually
+start leaking. There are 2 problem with that:
 
 * the caps lose their capacitance
 * the electrolyte is corrosive: it can eat away PCB metal traces which will make the scope non-functional
@@ -165,13 +154,19 @@ I was fully prepared to have to go through the whole process (the number of caps
 a bunch of videos about how to go about it.
 
 After receiving mine, I took off the enclosure to check out the damage, and I found an absolutely pristine
-acquisition PCB. There are no markings on the outside of the scope that indicate a production date, however, 
-the bootup screen says "Copyright 1991-1996" and the PCB has a handwritten date of what seems to be "11/8/96". 
+acquisition PCB. The solder contact points are bright and shiny (leaded solder...), there's barely any dust,
+and there's no leaking electrolyte whatsoever around caps:
 
-However, there's [this commenter](https://www.eevblog.com/forum/testgear/tek-tds-420a-scorequestions/msg508699/#msg508699) 
-on EEVBlog who writes:
+![Capacitors Closeup](/assets/tek420a/capacitors_closeup.jpg)
 
-> Your oscilloscope says 'copyright 1996'. That means it is a later model which doesn't have the leaky capacitors. 
+There are no markings on the outside of the scope that indicate a production date, however,
+the bootup screen says "Copyright 1991-1996" and on the image above, you can see ahandwritten date of what
+seems to be "11/8/96".
+
+[This commenter](https://www.eevblog.com/forum/testgear/tek-tds-420a-scorequestions/msg508699/#msg508699)
+on EEVBlog has the following to say to a fellow TDS 420A owner:
+
+> Your oscilloscope says 'copyright 1996'. That means it is a later model which doesn't have the leaky capacitors.
 > I'd leave the oscilloscope as it is.
 
 And that's exactly what I'll do!
@@ -191,6 +186,55 @@ For those who aren't so lucky, here are some repair videos that I found useful:
     A tougher repair that goes beyond just replacing caps, requiring bodge wires to fix traces that were
     corroded away.
 
+# Option Hacking to 120K?
+
+Tektronix oscilloscopes of that era use NVRAM to store information about which options are enabled.
+
+And just like with some Rigol or Siglent scopes, if you know what you're doing, there are ways to
+non-invasively change these configuration values and install new features for free.
+
+The TDS 420A doesn't have many options available that would move the needle in terms of general
+usefulness... except for option 1M, support for 120K sample points.
+
+A closer look at the acquisition PCB shows 2 large ASICs that are surrounded by 16 Cypress chips of
+type [CY7C199-20](https://media.digikey.com/pdf/Data%20Sheets/Cypress%20PDFs/CY7C199.pdf). Those
+are 32K x 8 SRAM chips with an access time of 50MHz.
+
+![Sample Memory Chips](/assets/tek420a/sample_memory.jpg)
+
+16 x 32K = 512KB / 4 channels = 128 Kb per channel.
+
+There's little doubt that this board has the hardware to support 120K sample points, it's just that
+the feature is not enabled.
+
+Since there are 4 chips per channel, interleaving accesses is sufficient to store samples at a rate of
+100MHz even when the individual chips are limited to 50MHz.
+
+* [Hacking my TDS460A to have options 1M/2F?](https://www.eevblog.com/forum/testgear/hacking-my-tds460a-to-have-options-1m2f/)
+
+* [TDS 420 Debug Serial Port](https://forum.tek.com/viewtopic.php?t=138100)
+
+* [Upgrade Tektronix: FFT analyzer](http://videohifi17.rssing.com/chan-62314146/all_p49.html)
+
+    Story about upgrading the CPU board from 8MB to 16MB on a TDS420 (not 420A?) and then FFT in the
+    NVRAM.
+
+# Documentation
+
+Tek scopes are used for decades and Tektronics cares about its customers. 29 years after introduction,
+most manuals and programming guides are readily available on their website. And if some of the more obscure
+information isn't there, some other website probably has a copy.
+
+* [TDS410A, TDS420A & TDS460A User manual](https://www.tek.com/oscilloscope/tds420a-manual/tds410a-tds420a-tds460a-user-manual)
+    * [PDF link](https://download.tek.com/manual/070921900.pdf)
+* [TDS Family Digitizing Oscilloscopes Programmers Manual](https://www.tek.com/manual/tds-family-programmer-manual)
+    * [PDF link](https://download.tek.com/manual/070987600.pdf)
+* [TDS410A, TDS420A, & TDS460A Technical Reference - Performance Verification and Specifications](https://www.tek.com/oscilloscope/tds420a-manual/tds410a-tds420a-tds460a-technical-reference)
+    * [PDF link](https://download.tek.com/manual/070921800.pdf)
+* [TDS420A, TDS430A & TDS460A Service Manual](https://www.tek.com/oscilloscope/tds420a-manual/tds420a-tds430a-tds460a-service-manual)
+    * [PDF link](https://download.tek.com/manual/070970304.pdf)
+* [TDS Family Option 13 RS-232/Centronics Hardcopy Interface](http://w140.com/tekwiki/images/f/f0/070-8567-01.pdf)
+
 # Random Related Youtube Videos
 
 * [Tektronix TDS 420A Oscilloscope Teardown](https://www.youtube.com/watch?v=SwFyxgGT5TA)
@@ -204,7 +248,7 @@ For those who aren't so lucky, here are some repair videos that I found useful:
 
 # GPIB - Installing the GPIB-USB-HS Linux Kernel Driver
 
-It's hard to believe, but despite supporting pretty much any kind of device imaginable, the offical Linux kernel 
+It's hard to believe, but despite supporting pretty much any kind of device imaginable, the offical Linux kernel
 doesn't have any support for GPIB interfaces!
 
 Luckily, there is the [Linux GPIB Package](https://linux-gpib.sourceforge.io/) which contains driver modules for
@@ -269,7 +313,7 @@ find .
 ./hp_82335/hp82335.ko
 ```
 
-* Install the appropriate GPIB driver into the kernel 
+* Install the appropriate GPIB driver into the kernel
 
 For the GPIB-USB-HS, that's the `ni_usb_gpib` driver:
 
@@ -313,7 +357,7 @@ same Linux GPIB package that also contained the kernel above.
 I used the following recipe:
 
 * Compile and install the whole thing:
-    
+
     ```
     cd linux-gpib-user
     ./bootstrap
@@ -322,9 +366,9 @@ I used the following recipe:
     sudo make install
     sudo ldconfig
     ```
-    
+
     This will install an important configuration file in `/usr/local/etc/gpib.conf`.
-    
+
     If you want the location of this file to be under `/etc` instead, you can do so with
     by using `./configure --sysconfdir=/etc`.
 
@@ -341,7 +385,7 @@ I used the following recipe:
 The GPIB protocol supports up to 31 devices on a single cable daisy chain. But there's no plug
 and play here, the address of each device needs to be assigned manually.
 
-On the TDS 420A, you do this as follows. (See also the 
+On the TDS 420A, you do this as follows. (See also the
 [user manual](https://www.tek.com/oscilloscope/tds420a-manual/tds410a-tds420a-tds460a-user-manual) on page 3-91.)
 
 * Press SHIFT UTILITY -> System (main) -> I/O (pop-up) -> Port (main) -> GPIB (pop-up) -> Configure (main) -> Talk/Listen Address
@@ -383,7 +427,7 @@ The Linux GPIB package comes with a number of utilities, one of which is `ibtest
     received string: 'TEKTRONIX,TDS 420A,0,CF:91.1CT FV:v1.0.2e
     '
     Number of bytes read: 42
-    gpib status is: 
+    gpib status is:
     ibsta = 0x2100  < END CMPL >
     iberr= 0
     ```
@@ -447,7 +491,7 @@ RUNST;0;SAM;10;16;1
     * `DATA:SOURCE CH1,CH2,CH3,CH4` : fetch multiple channels at once
     * `WFMPRE?` : waveform preamble information of all data:source channels
     * `CURV?` : waveform data
-    * `WAVF?`: waveform preamble and waveform data together 
+    * `WAVF?`: waveform preamble and waveform data together
 
 
 Single acquistion:
