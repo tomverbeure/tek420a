@@ -40,7 +40,8 @@ Released in 1991, the TDS 420A is old enough to have teenage children by now! Bu
 with more recent Tek scopes will feel right at home: the user interface is nearly identical. That doesn't mean that
 the UI is great, it's not, but at least it's consistent.
 
-Here's a quick overview of the TDS 420A
+
+Here's a quick overview of the TDS 420A:
 
 * 4 channels
 
@@ -70,7 +71,7 @@ Here's a quick overview of the TDS 420A
 
     Like the sample rate, the number of sample points doesn't go down when you enable more than 1 channel.
 
-* Size: 13" wide, 18" deep, 6" high
+* Size: 15" wide, 18.5" deep, 7.5" high
 
     My bench is 24" deep and always full of stuff. 18" is hard to swallow.
 
@@ -134,6 +135,9 @@ Some other options:
     The whole idea of glscopeclient is to move these kind of operations from the scope to the PC, so I don't
     really care about being able to run an FFT on the scope itself.
 
+The 420A is an upgrade of the 420. The most notable differences are the bandwidth which was upgraded from 150 to
+200 MHz, and the number of sample points, upgraded from 15k/60k to 30k/120k.
+
 # The Leaking Electrolytic Capacitor Problem
 
 When looking around the web for information about the TDS 420A, you'll find a bunch of videos about
@@ -154,13 +158,16 @@ I was fully prepared to have to go through the whole process (the number of caps
 a bunch of videos about how to go about it.
 
 After receiving mine, I took off the enclosure to check out the damage, and I found an absolutely pristine
-acquisition PCB. The solder contact points are bright and shiny (leaded solder...), there's barely any dust,
-and there's no leaking electrolyte whatsoever around caps:
+acquisition PCB. The solder contact points are bright and shiny (leaded solder...) and there's barely any dust.
+
+![Inside Overview](/assets/tek420a/inside_overview.jpg)
+
+Even better: there's no leaking electrolyte whatsoever around caps:
 
 ![Capacitors Closeup](/assets/tek420a/capacitors_closeup.jpg)
 
-There are no markings on the outside of the scope that indicate a production date, however,
-the bootup screen says "Copyright 1991-1996" and on the image above, you can see ahandwritten date of what
+There are no markings on the outside of the scope that indicate a production date. However,
+the bootup screen says "Copyright 1991-1996" and on the image above, you can see a handwritten date of what
 seems to be "11/8/96".
 
 [This commenter](https://www.eevblog.com/forum/testgear/tek-tds-420a-scorequestions/msg508699/#msg508699)
