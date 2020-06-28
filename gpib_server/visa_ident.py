@@ -12,7 +12,4 @@ rm = pyvisa.ResourceManager()
 
 g = rm.open_resource('GPIB0::1::INSTR')
 print(g.query('*IDN?'))
-
-
-g.write('*IDN?')
-print(g.read())
+print(g.query('*LRN?'))

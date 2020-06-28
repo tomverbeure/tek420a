@@ -21,6 +21,7 @@ Fetching waveform:
 ```
 RUNST;0;SAM;10;16;1
 ```
+
     * `ACQ:STATE RUN` : start acquisition
     * `ACQ:STATE STOP` : stop acquisition
     * `DATA:SOURCE CH1` : select data channel to fetch
@@ -47,13 +48,13 @@ Continuous acquistion:
 
 (doesn't work...)
 
+```
 sudo vi /etc/udev/rules.d/72-linux_gpib_ni_usb.rules
 
 SUBSYSTEMS=="usb", ACTION=="add", ENV{DEVTYPE}=="usb_device", ATTR{idVendor}=="3923", ATTR{idProduct}=="709b", MODE="666", GROUP="tom", SYMLINK+="usb_gpib"
 SUBSYSTEMS=="usb", ACTION=="add", ENV{DEVTYPE}=="usb_device", ATTR{idVendor}=="3923", ATTR{idProduct}=="709b", RUN+="/usr/local/sbin/gpib_config"
 KERNEL=="gpib[0-9]*", ACTION=="add", MODE="666", GROUP="tom"
-
-
+```
 
 ```
 sudo udevadm control -R
