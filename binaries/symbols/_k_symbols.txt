@@ -1,0 +1,9 @@
+_tcp_keepidle   0x02e1e714 data    
+_kernelTimeSlice 0x01203158 text    
+_kernelState    0x02f24c7c bss     
+_kernelVersion  0x01203146 text    
+_kernelIsIdle   0x02f27bc4 bss     
+_kernelInit     0x01203000 text    
+_ksleep         0x011f8298 text    
+_kill           0x011debc0 text    
+_tcp_keepintvl  0x02e1e718 data    

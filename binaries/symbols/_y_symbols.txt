@@ -1,0 +1,17 @@
+_yylval         0x02f27cc0 bss     
+_yyact          0x02e1ae96 data    
+_yesnet         0x011c84a0 text    
+_yyv            0x02f27ce0 bss     
+_yydef          0x02e1b7c6 data    
+_yynerrs        0x02e1b8d0 data    
+_yyerrflag      0x02e1b8d4 data    
+_yychk          0x02e1b6de data    
+_yyparse        0x011ee034 text    
+_yyr1           0x02e1b5e2 data    
+_yypgo          0x02e1b5d2 data    
+_yystart        0x011ec674 text    
+_yyexca         0x02e1ae8a data    
+_yyval          0x02f27cd0 bss     
+_yychar         0x02e1b8cc data    
+_yypact         0x02e1b4ea data    
+_yyr2           0x02e1b660 data    

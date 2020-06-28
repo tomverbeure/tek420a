@@ -1,0 +1,3 @@
+_zero_fill_destination 0x011c30fc text    
+_zeroin_addr    0x02f28928 bss     
+_zeroSysRam     0x011c9096 text    
